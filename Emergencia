@@ -40,7 +40,7 @@ def on_iot_hub_message_event(partition_context, event):
 
     
 
-    if contador_anterior==1&&event_contador==1
+    if (contador_anterior==1&event_contador==1)
 	print("There is an emergency in device {}, the track could be stucked".format(event_device_name))
         print("Turning off the conveyor belt")
 
