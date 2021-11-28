@@ -4,8 +4,7 @@ import sys
 from azure.eventhub import EventHubConsumerClient
 from azure.iot.hub import IoTHubRegistryManager
 
-IOT_HUB_BUILT_IN_ENDPOINT_CONNECTION_STRING = sys.argv[1]
-
+IOT_HUB_BUILT_IN_ENDPOINT_CONNECTION_STRING = "HostName=56tracks-iothub.azure-devices.net;DeviceId=contador;SharedAccessKey=ioLZZM7heA4xmkwPREsSNobnxY8EHmyJHaWv6BzvTbE="
 
 AUX_EVENT_HUB_NAMESPACE_CONNECTION_STRING = ";".join(IOT_HUB_BUILT_IN_ENDPOINT_CONNECTION_STRING.split(";")[0:3])
 AUX_EVENTHUB_NAME = IOT_HUB_BUILT_IN_ENDPOINT_CONNECTION_STRING.split(";")[3].split("=")[1]
