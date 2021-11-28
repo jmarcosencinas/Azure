@@ -6,6 +6,7 @@ from azure.iot.hub import IoTHubRegistryManager
 
 IOT_HUB_BUILT_IN_ENDPOINT_CONNECTION_STRING = sys.argv[1]
 
+
 AUX_EVENT_HUB_NAMESPACE_CONNECTION_STRING = ";".join(IOT_HUB_BUILT_IN_ENDPOINT_CONNECTION_STRING.split(";")[0:3])
 AUX_EVENTHUB_NAME = IOT_HUB_BUILT_IN_ENDPOINT_CONNECTION_STRING.split(";")[3].split("=")[1]
 AUX_EVENTHUB_SAS  = IOT_HUB_BUILT_IN_ENDPOINT_CONNECTION_STRING.split(";")[2][16:]
@@ -34,24 +35,23 @@ def on_iot_hub_message_event(partition_context, event):
 
     #READ MESSAGE PROPERTIES
     #IF YOUR DEVICE DOES NOT SEND TEMPERATURE JUST CHANGE THE FOLLOWING LINES
-    event_contador=event_body['contador']
+    event_contador=event_body['emergencia']
     event_device_name=event_body['device_name']
     
 
     
 
-    if ((contador_anterior==1)and(event_contador==1)):
-    	print("There is an emergency in device {}, the track could be stucked".format(event_device_name))
+    if (event_contador==1):
+        print("There is an emergency in device {}, the track could be stucked".format(event_device_name))
         print("Turning off the conveyor belt")
 
         #MESSAGES TO DEVICES HAVE A BODY
-        command_to_device_message_body = "activando"
+        command_to_device_message_body = "desactivar_cinta"
         #MESSAGES TO DEVICES HAVE A DICTIONARY OF PROPERTIES
         command_to_device_message_properties={}
         
         aux_iot_hub_send_message_to_device(device_name=event_device_name, message_body=command_to_device_message_body, message_properties=command_to_device_message_properties)
 	
-contador_anterior=event_contador
 
 if __name__ == '__main__':
 
